@@ -15,6 +15,8 @@ var currentSegment = -1;
 
 var segmentStartTime = 0;
 var radius = 1;
+var SegmentTimer = 0;
+var TotalTimer = 0;
 
 var requestAnimationFrame = window.requestAnimationFrame || 
 							window.mozRequestAnimationFrame || 
@@ -29,53 +31,56 @@ function setup() {
 }
 
 function gatherInput() {
-    INHALE_DURATION = parseFloat($('input[name=inhale]').val(), 3.5);
-    INHALE_PAUSE = parseFloat($('input[name=inhalePause]').val(), 3.5);
-    EXHALE_DURATION = parseFloat($('input[name=exhale]').val(), 3.5);
-    EXHALE_PAUSE = parseFloat($('input[name=exhalePause]').val(), 3.5);
-    REPETITIONS = parseFloat($('input[name=repetitions]').val(), 3);
+	currentSegment = -1;
+	clearTimeout(SegmentTimer);
+	clearTimeout(TotalTimer);
+
+    INHALE_DURATION = parseFloat($('input[name=inhale]').val(), 4);
+    INHALE_PAUSE = parseFloat($('input[name=inhalePause]').val(), 0);
+    EXHALE_DURATION = parseFloat($('input[name=exhale]').val(), 4);
+    EXHALE_PAUSE = parseFloat($('input[name=exhalePause]').val(), 0);
+    DURATION = parseFloat($('input[name=duration]').val(), 10);
 
     segments.push(INHALE_DURATION);
     segments.push(INHALE_PAUSE);
     segments.push(EXHALE_DURATION);
     segments.push(EXHALE_PAUSE);
 	startSegment();
+	TotalTimer = setTimeout(function() {
+		currentSegment = 0;
+		clearTimeout(SegmentTimer);
+        $(".Completed").empty();
+		$(".Completed").append("Breathing Complete!");
+    }, DURATION*60*1000); //Timer duration
 }
 
 function startSegment() {
 	currentSegment++;
 	currentSegment = currentSegment % 4;
 	
-	if (currentSegment == SEGMENT_INHALE)
+	if (currentSegment == SEGMENT_INHALE && INHALE_DURATION > 0)
 	{
-		REPETITIONS--;
-		if (REPETITIONS == -1)
-		{
-			return;
-		}
-
-		$(".CyclesRemaining").empty();
-		$(".CyclesRemaining").append("Cycles Remaining: " + REPETITIONS);
-		console.log("Remaining: " + REPETITIONS);
 		var SND_INHALE = new Audio("audio/Inhale.mp3"); // buffers automatically when created
 		SND_INHALE.play();
 	}
-	else if (currentSegment == SEGMENT_INHALE_PAUSE)
+	else if (currentSegment == SEGMENT_INHALE_PAUSE && INHALE_PAUSE > 0)
 	{
-		// Do nothing
+		var SND_HOLD = new Audio("audio/Hold.mp3"); // buffers automatically when created
+		SND_HOLD.play();
 	}
-	else if (currentSegment == SEGMENT_EXHALE)
+	else if (currentSegment == SEGMENT_EXHALE && EXHALE_DURATION > 0)
 	{
 		var SND_EXHALE = new Audio("audio/Exhale.mp3"); // buffers automatically when created
 		SND_EXHALE.play();
 	}
-	else if (currentSegment == SEGMENT_EXHALE_PAUSE)
+	else if (currentSegment == SEGMENT_EXHALE_PAUSE && EXHALE_PAUSE > 0)
 	{
-		// Do nothing
+		var SND_HOLD = new Audio("audio/Hold.mp3"); // buffers automatically when created
+		SND_HOLD.play();
 	}
 
 	segmentStartTime = undefined;
-	setTimeout(function() {
+	SegmentTimer = setTimeout(function() {
         startSegment();
     }, segments[currentSegment]*1000); //Timer duration
 }
