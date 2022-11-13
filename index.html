@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		
+        <link type="text/css" rel="stylesheet" href="style.css" />
+        <script type="text/javascript" src='script.js'></script>
+		
+		<meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=2, maximum-scale=2">
+		<title>Breathing Exercises</title>
+	</head>
+	<body oncontextmenu="return false;">
+        <form class="formBody">
+            Inhale Duration<input type="text" name="inhale" value="3.5" class="input"></input>
+            Inhale Pause<input type="text" name="inhalePause" value="3.5" class="input"></input>
+        	</p>
+            Exhale Duration<input type="text" name="exhale" value="3.5" class="input"></input>
+            Exhale Pause<input type="text" name="exhalePause" value="3.5" class="input"></input>
+        	</p>
+            Repetitions<input type="text" name="repetitions" value="5" class="input"></input>
+			<div class="start"><p>START!</p></div>
+        </form>
+        <div class="container">
+        	<div class="CyclesRemaining"></div>
+        	</p>
+        	<canvas id="circleCanvas" width="500" height="500">
+        	</canvas>
+        </div>
+	</body>
+</html>
