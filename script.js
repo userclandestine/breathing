@@ -58,25 +58,28 @@ function startSegment() {
 	currentSegment++;
 	currentSegment = currentSegment % 4;
 	
+	var currentSound = undefined;
 	if (currentSegment == SEGMENT_INHALE && INHALE_DURATION > 0)
 	{
-		var SND_INHALE = new Audio("audio/Inhale.mp3"); // buffers automatically when created
-		SND_INHALE.play();
+		currentSound = new Audio("audio/Inhale.mp3"); // buffers automatically when created
 	}
 	else if (currentSegment == SEGMENT_INHALE_PAUSE && INHALE_PAUSE > 0)
 	{
-		var SND_HOLD = new Audio("audio/Hold.mp3"); // buffers automatically when created
-		SND_HOLD.play();
+		currentSound = new Audio("audio/Hold.mp3"); // buffers automatically when created
 	}
 	else if (currentSegment == SEGMENT_EXHALE && EXHALE_DURATION > 0)
 	{
-		var SND_EXHALE = new Audio("audio/Exhale.mp3"); // buffers automatically when created
-		SND_EXHALE.play();
+		currentSound = new Audio("audio/Exhale.mp3"); // buffers automatically when created
 	}
 	else if (currentSegment == SEGMENT_EXHALE_PAUSE && EXHALE_PAUSE > 0)
 	{
-		var SND_HOLD = new Audio("audio/Hold.mp3"); // buffers automatically when created
-		SND_HOLD.play();
+		currentSound = new Audio("audio/Hold.mp3"); // buffers automatically when created
+	}
+
+	if (currentSound != undefined)
+	{
+		currentSound.load();
+		currentSound.play();
 	}
 
 	segmentStartTime = undefined;
