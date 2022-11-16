@@ -78,10 +78,9 @@ function startSegment() {
 
 	if (currentSound != undefined)
 	{
-		var containerObj = document.getElementById("container");
-		var audioElem = document.createElement('audio');
-		containerObj.appendChild(audioElem);
+		var audioElem = document.getElementById("audioContainer");
 		audioElem.src = currentSound;
+		audioElem.currentTime = 0;
 		audioElem.load();
 		audioElem.play();
 	}
