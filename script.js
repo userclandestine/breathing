@@ -61,25 +61,29 @@ function startSegment() {
 	var currentSound = undefined;
 	if (currentSegment == SEGMENT_INHALE && INHALE_DURATION > 0)
 	{
-		currentSound = new Audio("audio/Inhale.mp3"); // buffers automatically when created
+		currentSound = "audio/Inhale.mp3";
 	}
 	else if (currentSegment == SEGMENT_INHALE_PAUSE && INHALE_PAUSE > 0)
 	{
-		currentSound = new Audio("audio/Hold.mp3"); // buffers automatically when created
+		currentSound = "audio/Hold.mp3";
 	}
 	else if (currentSegment == SEGMENT_EXHALE && EXHALE_DURATION > 0)
 	{
-		currentSound = new Audio("audio/Exhale.mp3"); // buffers automatically when created
+		currentSound = "audio/Exhale.mp3";
 	}
 	else if (currentSegment == SEGMENT_EXHALE_PAUSE && EXHALE_PAUSE > 0)
 	{
-		currentSound = new Audio("audio/Hold.mp3"); // buffers automatically when created
+		currentSound = "audio/Hold.mp3";
 	}
 
 	if (currentSound != undefined)
 	{
-		currentSound.load();
-		currentSound.play();
+		var containerObj = document.getElementById("container");
+		var audioElem = document.createElement('audio');
+		containerObj.appendChild(audioElem);
+		audioElem.src = currentSound;
+		audioElem.load();
+		audioElem.play();
 	}
 
 	segmentStartTime = undefined;
